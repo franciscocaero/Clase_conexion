@@ -6,61 +6,51 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Insertar {
+public class InsertarCarros {
     private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
     private JTextField textField4;
     private JButton conectarButton;
-    private JButton borrarCamposButton;
-    private JButton ingresarDatosButton;
-    public JPanel form1;
+    private JButton insertarButton;
+    private JTextArea descripciónDelCarroTextArea;
+    public JPanel panelCarros;
 
-    public Insertar() {
+    public InsertarCarros() {
         conectarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ConexionBD miconexion = new ConexionBD();
                 miconexion.conexionLocal(
-                        "jdbc:mysql://localhost:3306/estudiantes",
+                        "jdbc:mysql://localhost:3306/proyectos",
                         "root", "");
                 JOptionPane.showMessageDialog(null, miconexion.getMensaje());
             }
-
         });
-        borrarCamposButton.addActionListener(new ActionListener() {
+        insertarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textField1.setText("");
-                textField2.setText("");
-                textField3.setText("");
-                textField4.setText("");
-            }
-        });
-        ingresarDatosButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String nombre = textField1.getText();
-                String cedula = textField2.getText();
-                int calificacion1 = Integer.parseInt(textField3.getText());
-                int calificacion2 = Integer.parseInt(textField4.getText());
-
-                ingresoDatos(nombre, cedula, calificacion1, calificacion2);
+                String modelo=textField1.getText();
+                String marca=textField2.getText();
+                int anyo=Integer.parseInt(textField3.getText());
+                String color=textField4.getText();
+                String caracteristicas= descripciónDelCarroTextArea.getText();
+                ingresoDatos(marca,modelo,anyo,color,caracteristicas);
                 JOptionPane.showMessageDialog(null, "Datos insertados exitosamente");
             }
         });
     }
-
-    public static void ingresoDatos(String nombre, String cedula, int calificacion1, int calificacion2) {
+    public static void ingresoDatos(String marca, String modelo, int anyo, String color,String caracteristicas) {
         try (Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/estudiantes",
-                "root", "1234")) {
-            String sql = "INSERT INTO calificaciones(nombre, cedula, calificacion1, calificacion2)values(?,?,?,?)";
+                "jdbc:mysql://localhost:3306/proyectos",
+                "root", "")) {
+            String sql = "INSERT INTO carros(marca, modelo, año, color,caracteristicas)values(?,?,?,?,?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, nombre);
-                preparedStatement.setString(2, cedula);
-                preparedStatement.setInt(3, calificacion1);
-                preparedStatement.setInt(4, calificacion2);
+                preparedStatement.setString(1, marca);
+                preparedStatement.setString(2, modelo);
+                preparedStatement.setInt(3, anyo);
+                preparedStatement.setString(4, color);
+                preparedStatement.setString(5,caracteristicas);
                 int filasAfectadas = preparedStatement.executeUpdate();
 
                 if (filasAfectadas > 0) {
@@ -73,5 +63,4 @@ public class Insertar {
             e.printStackTrace();
         }
     }
-
 }

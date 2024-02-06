@@ -14,10 +14,10 @@ public class Ingresar {
         ingresarDatos(nombre, cedula, calificacion1, calificacion2);
     }
 
-    public static void ingresarDatos(String nombre, String cedula, int calificacion1, int calificacion2) {
+    public static void ingresarDatos(String nombre, String cedula, int calificacion1    , int calificacion2) {
         try (Connection connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/estudiantes",
-                "root", "1234")) {
+                "root", "")) {
             String sql = "INSERT INTO calificaciones(nombre, cedula, calificacion1, calificacion2)values(?,?,?,?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, nombre);
