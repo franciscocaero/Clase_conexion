@@ -27,14 +27,8 @@ public class Main {
         frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
-        JFrame ft=new JFrame("Frame Tabla");
-        JTable table1=new JTable();
-        DefaultTableModel tableModel=new DefaultTableModel(6,4);
 
-        ft.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        ft.setSize(400,500);
-        ft.setLocationRelativeTo(null);
-        ft.add(table1);
+
     }
 
 }

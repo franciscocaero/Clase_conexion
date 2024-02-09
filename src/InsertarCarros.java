@@ -15,18 +15,10 @@ public class InsertarCarros {
     private JButton insertarButton;
     private JTextArea descripciónDelCarroTextArea;
     public JPanel panelCarros;
+    private JButton verdatButton;
 
     public InsertarCarros() {
-        conectarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ConexionBD miconexion = new ConexionBD();
-                miconexion.conexionLocal(
-                        "jdbc:mysql://localhost:3306/proyectos",
-                        "root", "");
-                JOptionPane.showMessageDialog(null, miconexion.getMensaje());
-            }
-        });
+
         insertarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,6 +29,13 @@ public class InsertarCarros {
                 String caracteristicas= descripciónDelCarroTextArea.getText();
                 ingresoDatos(marca,modelo,anyo,color,caracteristicas);
                 JOptionPane.showMessageDialog(null, "Datos insertados exitosamente");
+            }
+        });
+        verdatButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new JFrame("Mostrar Carros");
+                MostrarCarros mostrarCarros = new MostrarCarros();
             }
         });
     }
